@@ -1,6 +1,6 @@
 # Kaggle Project
 ## Digit Recognizer
-Competition link - [Santa Gift Matching(https://www.kaggle.com/c/santa-gift-matching) 
+Competition link - [Santa Gift Matching](https://www.kaggle.com/c/santa-gift-matching) 
 ####  Tags: Optimization, Recommendation Systems
 ### Submitted by Nasrudin Salim
 [Kaggle Profile](https://www.kaggle.com/nasdin/) 

@@ -6,11 +6,23 @@ from happiness import avg_normalized_happiness
 from ortools.graph import pywrapgraph
 
 
-INPUT_PATH = 'data/'
+data_path = 'data/'
+wishlist_file = 'child_wishlist_v2.csv'
+goodkids_file = 'gift_goodkids_v2.csv'
+
+#Competition Parameters
+n_children = 1000000
+n_gift_type = 1000
+n_gift_quantity = 1000
+n_child_wish = 100
+triplets_percentage = 0.05 #0.05%
+twins_percentage = 4 #4%
+
+#induction
 
 
 
-
+tts = triplets + twins
 
 
 
@@ -19,8 +31,8 @@ INPUT_PATH = 'data/'
 
 
 def solve():
-    wish = pd.read_csv(INPUT_PATH + 'child_wishlist_v2.csv', header=None).as_matrix()[:, 1:]
-    gift = pd.read_csv(INPUT_PATH + 'gift_goodkids_v2.csv', header=None).as_matrix()[:, 1:]
+    wish = pd.read_csv(data_path+wishlist_file, header=None).as_matrix()[:, 1:]
+    gift = pd.read_csv(data_path+goodkids_file, header=None).as_matrix()[:, 1:]
     answ = np.zeros(len(wish), dtype=np.int32)
     answ[:] = -1
     happiness = get_overall_hapiness(wish, gift)
@@ -160,6 +172,7 @@ def solve():
     for i in range(len(answ)):
         out.write(str(i) + ',' + str(answ[i]) + '\n')
     out.close()
+
 
 
 if __name__ == '__main__':
