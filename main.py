@@ -19,7 +19,8 @@ triplets_percentage = 0.05 #0.05%
 twins_percentage = 4 #4%
 
 #induction
-
+triplets = int((triplets_percentage/100 ) * n_children)
+twins = int((twins_percentage/100 ) * n_children)
 
 
 tts = triplets + twins
