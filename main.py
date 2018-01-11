@@ -11,19 +11,21 @@ wishlist_file = 'child_wishlist_v2.csv'
 goodkids_file = 'gift_goodkids_v2.csv'
 
 #Competition Parameters
-n_children = 1000000
+n_children = 1000000 #1 million
 n_gift_type = 1000
 n_gift_quantity = 1000
 n_child_wish = 100
-triplets_percentage = 0.05 #0.05%
+triplets_percentage = 0.5 #0.5%
 twins_percentage = 4 #4%
 
 #induction
-triplets = int((triplets_percentage/100 ) * n_children)
-twins = int((twins_percentage/100 ) * n_children)
+triplets_ = int((triplets_percentage/100 ) * n_children) #amount of triplets
+twins_ = int((twins_percentage/100 ) * n_children) -1 #amount of twins (no. 5001 to 45000) so 4% -1
 
-
-tts = triplets + twins
+#the start points
+triplets = 0 #starts at 0
+twins = triplets + triplets_ +1 #the start point of twins, ending of triplets
+tts = twins_ + twins  #the start point of children without clones ( but its 5001 - 45000)
 
 
 
@@ -32,30 +34,37 @@ tts = triplets + twins
 
 
 def solve():
+    #the index is the label
     wish = pd.read_csv(data_path+wishlist_file, header=None).as_matrix()[:, 1:]
     gift = pd.read_csv(data_path+goodkids_file, header=None).as_matrix()[:, 1:]
-    answ = np.zeros(len(wish), dtype=np.int32)
+    #default the answers
+    answ = np.empty(len(wish), dtype=np.int32)
     answ[:] = -1
     happiness = get_overall_hapiness(wish, gift)
-    gc.collect()
+    gc.collect() #garbage collector
 
+    # Give initial values
     start_nodes = []
     end_nodes = []
     capacities = []
     unit_costs = []
     supplies = []
 
+    #traditional design pattern
     min_h = 10**100
     max_h = -10**100
     avg_h = 0
+
+    #converted to list comprehension
+
     for h in happiness:
         c, g = h
 
         start_nodes.append(int(c))
-        end_nodes.append(int(1000000 + g))
-        if c < 5001:
+        end_nodes.append(int(n_children + g))
+        if c < twins:
             capacities.append(3)
-        elif c < 45001:
+        elif c < tts:
             capacities.append(2)
         else:
             capacities.append(1)
@@ -69,14 +78,14 @@ def solve():
     print('Min single happiness: {}'.format(min_h))
     print('Avg single happiness: {}'.format(avg_h / len(happiness)))
 
-    for i in range(1000000):
-        if i < 5001:
+    for i in range(n_children):
+        if i < twins:
             supplies.append(3)
-        elif i < 45001:
+        elif i < tts:
             supplies.append(2)
         else:
             supplies.append(1)
-    for j in range(1000000, 1001000):
+    for j in range(n_children, 1001000):
         supplies.append(-1000)
 
     # Instantiate a SimpleMinCostFlow solver.
@@ -103,7 +112,7 @@ def solve():
     for i in range(min_cost_flow.NumArcs()):
         cost = min_cost_flow.Flow(i) * min_cost_flow.UnitCost(i)
         if cost != 0:
-            answ[min_cost_flow.Tail(i)] = min_cost_flow.Head(i) - 1000000
+            answ[min_cost_flow.Tail(i)] = min_cost_flow.Head(i) - n_children
             total += 1
     print('Assigned: {}'.format(total))
 
@@ -117,12 +126,12 @@ def solve():
             print('Gift error: {} (Value: {})'.format(i, gift_count[i]))
 
     # Add triplets restrictions
-    for i in range(0, 5001, 3):
+    for i in range(0, twins, 3):
         answ[i + 1] = answ[i]
         answ[i + 2] = answ[i]
 
     # Add twins restrictions
-    for i in range(5001, 45001, 2):
+    for i in range(twins, tts, 2):
         answ[i] = answ[i + 1]
 
     if answ.min() == -1:
@@ -142,7 +151,7 @@ def solve():
     if gift_count.max() > 1000:
         print('Gift overflow! Count: {}'.format(ov_count))
 
-    for i in range(45001, len(answ)):
+    for i in range(tts, len(answ)):
         if gift_count[answ[i]] > 1000:
             old_val = answ[i]
             j = np.argmin(gift_count)
