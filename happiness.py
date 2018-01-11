@@ -70,14 +70,17 @@ def avg_normalized_happiness(pred, gift, wish):
 
 
 
-
-def get_overall_hapiness(wish, gift):
+#optimized this
+def get_overall_hapiness(wish, gift,triplet_stop=5001,twin_stop=45001):
+    #input, list of all wishes
+    #list of all gifts
 
     list_limit = wish.shape[1]
-    list_limit = 42
+    #list_limit = 42
 
+    #convert to dict comprehension
     res_child = dict()
-    for i in range(0, 5001):
+    for i in range(0, triplet_stop):
         app = i - (i % 3)
         for j in range(list_limit):
             if (app, wish[i][j]) in res_child:
@@ -85,7 +88,7 @@ def get_overall_hapiness(wish, gift):
             else:
                 res_child[(app, wish[i][j])]  = 10 * (1 + (wish.shape[1] - j) * 2)
 
-    for i in range(5001, 45001):
+    for i in range(triplet_stop, twin_stop):
         app = i + (i % 2)
         for j in range(list_limit):
             if (app, wish[i][j]) in res_child:
@@ -93,7 +96,7 @@ def get_overall_hapiness(wish, gift):
             else:
                 res_child[(app, wish[i][j])]  = 10 * (1 + (wish.shape[1] - j) * 2)
 
-    for i in range(45001, wish.shape[0]):
+    for i in range(twin_stop, wish.shape[0]):
         app = i
         for j in range(list_limit):
             res_child[(app, wish[i][j])]  = 10 * (1 + (wish.shape[1] - j) * 2)
@@ -102,9 +105,9 @@ def get_overall_hapiness(wish, gift):
     for i in range(gift.shape[0]):
         for j in range(gift.shape[1]):
             cur_child = gift[i][j]
-            if cur_child < 5001:
+            if cur_child < triplet_stop:
                 cur_child -= cur_child % 3
-            elif cur_child < 45001:
+            elif cur_child < twin_stop:
                 cur_child += cur_child % 2
             res_santa[(cur_child, i)] = (1 + (gift.shape[1] - j)*2)
 

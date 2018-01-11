@@ -40,6 +40,7 @@ def solve():
     #default the answers
     answ = np.empty(len(wish), dtype=np.int32)
     answ[:] = -1
+    #calculate the initial happiness
     happiness = get_overall_hapiness(wish, gift)
     gc.collect() #garbage collector
 
@@ -125,6 +126,9 @@ def solve():
         if gift_count[i] > 1000:
             print('Gift error: {} (Value: {})'.format(i, gift_count[i]))
 
+
+    #this code basically just takes the gift of the first twin/triplet..
+    #A better way would be to consider the overall happiness of all three.
     # Add triplets restrictions
     for i in range(0, twins, 3):
         answ[i + 1] = answ[i]
