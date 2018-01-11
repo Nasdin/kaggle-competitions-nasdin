@@ -29,10 +29,6 @@ tts = twins_ + twins  #the start point of children without clones ( but its 5001
 
 
 
-
-
-
-
 def solve():
     #the index is the label
     wish = pd.read_csv(data_path+wishlist_file, header=None).as_matrix()[:, 1:]
