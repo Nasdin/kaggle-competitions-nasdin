@@ -1,8 +1,73 @@
 import math
 import numpy as np
 from utils import lcm
+from collections import Counter
 
 
+#Average happiness scores, more memory efficient
+def ANH_SCORE(pred, gp, cp):
+    gift_counts = Counter(elem[1] for elem in pred)
+    for count in gift_counts.values():
+        assert count <= 1000
+
+    # check that they all have the same gifts
+    for t1 in np.arange(0, 5001, 3):
+        triplet1 = pred[t1]
+        triplet2 = pred[t1 + 1]
+        triplet3 = pred[t1 + 2]
+        assert triplet1[1] == triplet2[1] and triplet2[1] == triplet3[1]
+
+    for t1 in np.arange(5001, 45001, 2):
+        twin1 = pred[t1]
+        twin2 = pred[t1 + 1]
+        assert twin1[1] == twin2[1]
+
+    tch = 0
+    tgh = np.zeros(1000)
+
+    for row in pred:
+        cid, gid = row
+
+        assert cid < 1e6
+        assert gid < 1000
+        assert cid >= 0
+        assert gid >= 0
+
+        ch = (100 - np.where(gp[cid] == gid)[0]) * 2
+        if not ch:
+            ch = -1
+
+        gh = (1000 - np.where(cp[gid] == cid)[0]) * 2
+        if not gh:
+            gh = -1
+
+        tch += ch
+        tgh[gid] += gh
+    return float(math.pow(tch * 10, 3) + math.pow(np.sum(tgh), 3)) / 8e+27
+
+
+# print(ANH_SCORE(test))
+
+def ANH_SCORE_ROW(pred, gp, cp):
+    tch = 0
+    tgh = np.zeros(1000)
+    for row in pred:
+        cid, gid = row
+        ch = (100 - np.where(gp[cid] == gid)[0]) * 2
+        if not ch:
+            ch = -1
+        gh = (1000 - np.where(cp[gid] == cid)[0]) * 2
+        if not gh:
+            gh = -1
+        tch += ch
+        tgh[gid] += gh
+    return float(math.pow(tch * 10, 3) + math.pow(np.sum(tgh),
+                                                  3)) / 8e+27  # math.pow(float(tch)/2e8,2) + math.pow(np.mean(tgh)/2e6,2)
+
+def metric_function(c1, c2,gp,cp):
+    cid1, gid1 = c1
+    cid2, gid2 = c2
+    return [ANH_SCORE_ROW([c1,c2],gp,cp), ANH_SCORE_ROW([[cid1,gid2],[cid2,gid1]],gp,cp)]
 
 def avg_normalized_happiness(pred, gift, wish):
     n_children = 1000000  # n children to give
