@@ -1,21 +1,53 @@
-# Kaggle Project
-## Digit Recognizer
-Competition link - [Santa Gift Matching](https://www.kaggle.com/c/santa-gift-matching) 
-####  Tags: Optimization, Recommendation Systems
-### Submitted by Nasrudin Salim
-[Kaggle Profile](https://www.kaggle.com/nasdin/) 
-#### Score: 50/371
+# Kaggle(google) data science competitions
+## [Nasrudin Kaggle Profile](https://www.kaggle.com/nasdin/) 
+Current kaggle rank: Contributor, 2018 Jan
+
+# Competitions
+## == Year 2017 Competitions==
+
+#### Date: 2017 Q4, [Santa Gift Matching](https://www.kaggle.com/c/santa-gift-matching) 
 #### Ranking: Top 13%
 
-***The Challenge***
+##### Score: 50/371
+**Description:** 1 million children. 1000 types of gifts, 1000 each. Using the wishlist and naughtylist, optimize distribution to maximize happiness of santa and children.
 
-In this competition, you are given a list of 1,000,000 children and their wish lists of 100 gifts. You are also given a list of 1000 gifts, and their list of 1000 good kids that they prefer to give to.
+#### Date: 2017 Q4, [Mercari Price Suggestion Challenge](https://www.kaggle.com/c/mercari-price-suggestion-challenge) 
+#### Ranking: Top 15%
+##### Score: 217/1514
+**Description:** Automatically suggest product prices to online sellers
 
-Your goal is to match the list of 1,000,000 children with a gift for each child, and try to make everyone happy. Both the kids and Santa need to be happy - for kids, the higher the gift is on their wish list, the happier, for Santa and his gifts, the higher the child is on the good kids list, the happier Santa is.
+#### Date: 2017 Q4, [Statoil/C-CORE Iceberg Classifier Challenge](https://www.kaggle.com/c/statoil-iceberg-classifier-challenge) 
+#### Ranking: Top 12%
+##### Score: 394/3294
+**Description:** Classifying ship or iceberg from space with sattelite images
 
-A few details to notice:
+#### Date: 2017 Q4, [Plants Seedlings Classification](https://www.kaggle.com/c/plant-seedlings-classification) 
+#### Ranking: Top 10%
+##### Score: 50/337
+**Description:** Determine the species of a seedling from an image.
 
-The first 0.5% (ChildId 0-5000) children are triplets. More particularly, 0, 1, 2 are triplets, 3, 4, 5, are triplets .... 4998, 4999, 5000 are triplets. Triplets need to be given the same gift even though they might have different preferences.
-The next 4% (ChildId 5001-45000) children are twins. More particularly, 5001 and 5002 are twins, 5003 and 5004 are twins, .... 44999 and 45000 are twins. Twins need to be given the same gift even though they might have different preferences.
-For each GiftId, there are 1000 of them available. There are exactly the same number of gifts available (1000 * 1000 = 1,000,000). You shall not exceed the quantity of 1000 for each GiftId.
-You are scored on the Average Normalized Happiness. Please refer to the Evaluation page to see detailed descriptions.
+
+#### Date: 2017 Q4, [Corporación Favorita Grocery Sales Forecasting](https://www.kaggle.com/c/favorita-grocery-sales-forecasting) 
+#### Ranking: Top 16%
+##### Score: 262/1644
+**Description:** Predicting sales and forecast for a large grocery chain
+
+#### Date: 2017 Q4, [Recruit Restaurant Visitor Forecasting ](https://www.kaggle.com/c/recruit-restaurant-visitor-forecasting) 
+#### Ranking: Top 23%
+##### Score: 312/1372
+**Description:** Predicting how many future visitors a restaurant will receive
+
+#### Date: 2017 Q4, [Titanic (Practice)](https://www.kaggle.com/c/titanic) 
+#### Ranking: Top 2%
+##### Score: 142/9532
+**Description:** Predicting each individual's survival on the titanic
+
+#### Date: 2017 Q4, [House Prices: Advanced Regression Techniques (Practice)](https://www.kaggle.com/c/house-prices-advanced-regression-techniques) 
+#### Ranking: Top 3%
+##### Score: 89/2974
+**Description:** Predicting property sales price and valuation
+
+#### Date: 2017 Q4, [Digit Recognizer (Practice) ](https://www.kaggle.com/c/santa-gift-matching) 
+#### Ranking: Top 15%
+##### Score: 280/1949
+**Description:** computer vision fundamentals with the famous MNIST data
