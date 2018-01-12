@@ -95,7 +95,7 @@ print('block size: {}, num blocks: {}, children reminder: {}'.
 answ_iter = np.zeros(len(wish), dtype=np.int32)
 score_best = score_org
 subm_best = subm
-perm_len = 2
+perm_len = 100
 block_len = 5
 for i in range(perm_len):  
     print('Current permutation step is: %d' %(i+1))
@@ -117,6 +117,7 @@ for i in range(perm_len):
             subm_best['GiftId'] = gift_ids[current_gift_ids]
             score_best = score_iter
             print('This is a performance improvement!')
+            subm_best[['ChildId', 'GiftId']].to_csv('improved_sub.csv', index=False)
         else: print('No improvement at this iteration!')
             
 subm_best[['ChildId', 'GiftId']].to_csv('improved_sub.csv', index=False)
