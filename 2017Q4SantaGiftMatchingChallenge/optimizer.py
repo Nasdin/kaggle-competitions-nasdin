@@ -8,7 +8,7 @@ from happiness import metric_function, ANH_SCORE
 #Takes an existing submission and reworks the submission and sees if it can improve the score
 
 #constant values
-randomness = 2820
+randomness = 3200
 gp = pd.read_csv('data/child_wishlist_v2.csv', header=None).drop(0, 1).values
 cp = pd.read_csv('data/gift_goodkids_v2.csv', header=None).drop(0, 1).values
 
